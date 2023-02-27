@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_perguntas/question.dart';
+import 'package:projeto_perguntas/answer.dart';
 
 void main() => runApp(PerguntaApp());
 
-class PerguntaAppState extends State<PerguntaApp> {
-  var perguntaSelecionada = 0;
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
   final List<String> perguntas = [
     'Qual é a sua cor favorita?',
     'Qual é o seu animal favorito?'
   ];
   void responder() {
 
-    if(perguntaSelecionada < perguntas.length -1) {
+    if(_perguntaSelecionada < perguntas.length -1) {
       setState(() {
-        perguntaSelecionada++;
+        _perguntaSelecionada++;
       });
-      print('pergunta respondida $perguntaSelecionada');
+      print('pergunta respondida $_perguntaSelecionada');
     }
-    print('não da pra aumentar o valor para maior que: $perguntaSelecionada');
+    print('não da pra aumentar o valor para maior que: $_perguntaSelecionada');
   }
 
   @override
@@ -28,19 +30,10 @@ class PerguntaAppState extends State<PerguntaApp> {
           ),
           body: Column(
             children: <Widget> [
-              Text(perguntas[perguntaSelecionada]),
-              ElevatedButton(
-                  onPressed: responder,
-                  child: const Text('Resposta 1')
-              ),
-              ElevatedButton(
-                  onPressed: responder,
-                  child: const Text('Resposta 2')
-              ),
-              ElevatedButton(
-                  onPressed: responder,
-                  child: const Text('Resposta 3')
-              )
+              Question(perguntas[_perguntaSelecionada]),
+              Answer(responder, 'resposta1'),
+              Answer(responder, 'resposta2'),
+              Answer(responder, 'resposta3')
             ],
           )
       ),
@@ -50,7 +43,7 @@ class PerguntaAppState extends State<PerguntaApp> {
 class PerguntaApp extends StatefulWidget {
 
   @override
-  State<PerguntaApp> createState() => PerguntaAppState();
+  State<PerguntaApp> createState() => _PerguntaAppState();
 
 }
   
