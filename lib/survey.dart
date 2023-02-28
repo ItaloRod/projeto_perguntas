@@ -5,7 +5,7 @@ class Survey extends StatelessWidget {
 
   final List<Map<String, dynamic>> perguntas;
   final int perguntaSelecionada;
-  final void Function() responder;
+  final void Function(int) responder;
 
   const Survey({super.key,
     required this.perguntas,
@@ -21,7 +21,10 @@ class Survey extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> respostas = temPerguntaSelecionada ?  perguntas[perguntaSelecionada]['respostas'] : [];
     List<Widget> widgets = respostas.map(
-            (resp) => Answer(responder, resp['texto'])
+      (resp) => Answer(
+        () => responder(resp['pontuacao']),
+        resp['texto']
+      )
     ).toList();
 
     return Column(
